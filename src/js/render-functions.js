@@ -5,9 +5,14 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import errorIcon from '../img/error.svg';
+import infoIcon from '../img/info.svg';
 
-const galleryElem = document.querySelector('.gallery');
-const loaderElem = document.querySelector('.loader');
+const refs = {
+  galleryElem: document.querySelector('.gallery'),
+  loaderElem: document.querySelector('.loader'),
+  loadMoreBtnElem: document.querySelector('.gallery-btn'),
+};
+
 const gallery = new SimpleLightbox('.gallery li a', {
   captionDelay: 250,
   captionsData: 'alt',
@@ -15,10 +20,21 @@ const gallery = new SimpleLightbox('.gallery li a', {
 
 export const generateErrorToastMessage = message => {
   iziToast.show({
-    class: 'error-toast',
+    class: 'toast error-toast',
     backgroundColor: '#ef4040',
     messageColor: '#fff',
     iconUrl: errorIcon,
+    position: 'topRight',
+    message,
+  });
+};
+
+export const generateInfoToastMessage = message => {
+  iziToast.show({
+    class: 'toast info-toast',
+    backgroundColor: '#09f',
+    messageColor: '#fff',
+    iconUrl: infoIcon,
     position: 'topRight',
     message,
   });
@@ -51,18 +67,36 @@ export const renderImageCard = ({
 
 export const createGallery = images => {
   const galleryMarkup = images.map(renderImageCard).join('');
-  galleryElem.innerHTML = galleryMarkup;
+  refs.galleryElem.insertAdjacentHTML('beforeend', galleryMarkup);
   gallery.refresh();
 };
 
 export const clearGallery = () => {
-  galleryElem.innerHTML = '';
+  refs.galleryElem.innerHTML = '';
 };
 
 export const showLoader = () => {
-  loaderElem.classList.remove('is-hidden');
+  refs.loaderElem.classList.remove('is-hidden');
 };
 
 export const hideLoader = () => {
-  loaderElem.classList.add('is-hidden');
+  refs.loaderElem.classList.add('is-hidden');
+};
+
+export const showLoadMoreButton = () => {
+  refs.loadMoreBtnElem.classList.remove('is-hidden');
+};
+
+export const hideLoadMoreButton = () => {
+  refs.loadMoreBtnElem.classList.add('is-hidden');
+};
+
+export const scrollToNewImages = () => {
+  // Get the card after it's rendered to the DOM
+  const galleryCartElem = document.querySelector('.gallery-item');
+  const cardSize = galleryCartElem.getBoundingClientRect();
+  window.scrollBy({
+    top: cardSize.height * 2,
+    behavior: 'smooth',
+  });
 };

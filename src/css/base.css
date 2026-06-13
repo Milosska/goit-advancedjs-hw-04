@@ -109,18 +109,35 @@ button:focus {
   display: block;
   font-weight: 600;
 }
+
+.gallery-btn {
+  display: block;
+  margin: 32px auto;
+}
 /* #endregion Gallery styles */
 
 /* #region Toast message styles */
-.error-toast {
-  max-width: 434px;
-  padding: 20px;
-  border-bottom: 2px solid #ffbebe;
+.toast {
+  max-width: 375px;
+  padding: 10px 45px 10px 0;
   border-radius: 4px;
-  background-color: #ef4040;
 
   letter-spacing: 0.03em;
   color: #fafafb;
+}
+
+.error-toast {
+  border-bottom: 2px solid #ffbebe;
+  background-color: #ef4040;
+}
+
+.info-toast {
+  border-bottom: 2px solid #b8e3ff;
+  background-color: #09f;
+}
+
+.iziToast-texts > .iziToast-message {
+  max-width: 300px;
 }
 
 .iziToast > .iziToast-close {
@@ -186,8 +203,10 @@ button:focus {
     width: 100%;
   }
 }
+/* #endregion Loader styles */
 
+/* #region JS-related styles */
 .is-hidden {
   display: none;
 }
-/* #endregion Loader styles */
+/* #endregion Additional styles */
